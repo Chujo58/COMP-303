@@ -6,6 +6,8 @@
 Table of Contents
 1. [Chapter 2](#u1)
     1. [Lecture 2 (2024-09-03)](#l2) 
+    1. [Lecture 3 (2024-09-05)](#l3) 
+    1. [Lecture 4 (2024-09-10)](#l4) 
 
 ## Chapter 2 <a name="u1"></a>
 ### Lecture 2 (2024-09-03) <a name="l2"></a>
@@ -24,8 +26,28 @@ public Card next(){
     Rank rank = Rank.values()[(aRank.ordinal()+1)%Rank.values().length];
     Suit suit = aSuit;
     if (rank == Rank.ACE) suit = Suit.values()[(aSuit.ordinal()+1)%Suit.values().length];
+
     return new Card(rank, suit);
 }
 ```
 
 It might be a better idea to code those two lines to increment into the `Rank` and `Suit` `enum` classes. You would replace `aRank` with `this`.
+
+### Lecture 3 (2024-09-05) <a name="l3"></a>
+Now we want to create a way to store all the 52 cards in a `"deck"` data structure. We could have an array of cards or a list or even a string containing all cards.
+
+`assert` will throw errors depending on the condition following it.
+
+### Lecture 4 (2024-09-10) <a name="l4"></a>
+Now instead of simply making a reference to an existing object inside of the `Deck` class, we can make a new `ArrayList` to hold the cards as a private variable and copy the cards given to the constructor into it:
+```Java
+private ArrayList<Card> aCards = new ArrayList();
+
+//Constructor:
+public Deck(ArrayList<Card> pCards){
+    aCards = new ArrayList<>(pCards);
+}
+```
+
+If we wanted to make a deck without aces, we could make another constructor to the one we already have. But we want to avoid code repetition.
+We can also use `Predicate` to avoid using interfaces for testing configuration for our decks. Especially in our case, there is a `removeIf` method in `ArrayList` letting us remove cards if they have a specific configuration. You can also `negate` the Predicate to avoid recoding stuff.
