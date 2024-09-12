@@ -51,3 +51,11 @@ public Deck(ArrayList<Card> pCards){
 
 If we wanted to make a deck without aces, we could make another constructor to the one we already have. But we want to avoid code repetition.
 We can also use `Predicate` to avoid using interfaces for testing configuration for our decks. Especially in our case, there is a `removeIf` method in `ArrayList` letting us remove cards if they have a specific configuration. You can also `negate` the Predicate to avoid recoding stuff.
+
+### Lecture 5 (2024-09-12) <a name="l5"></a>
+#### JetUML
+Instead of giving the attributes inside of the Class item in JetUML, we can make another box with the classes of those attributes and aggregate them to the Class item requiring them. On those arrows, you can have start, middle and end labels, the middle label is usually where we will place the variable name of the attributes and the end label will mention how many objects are required.
+
+Using french quotes, you can also mention the type of class you are making, whether it is an interface, or an enumeration.
+
+Not keeping track of the object (basically a pointer in a sense) but using its methods is a dependency. Whereas an aggregation implies that we keep track of the object.
