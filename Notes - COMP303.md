@@ -14,6 +14,12 @@ Table of Contents
 3. [Chapter 4](#u4)
     1. [Lecture 7 (2024-09-19)](#l7)
     2. [Lecture 8 (2024-09-24)](#l8)
+    3. [Lecture 9 (2024-09-26)](#l9)
+4. [Chapter 5](#u5)
+    1. [Lecture 10 (2024-10-01)](#l10)
+    1. [Lecture 11 (2024-10-01)](#l11)
+
+
 
 ## Chapter 2 - Encapsulation<a name="u1"></a>
 ### Lecture 2 (2024-09-03) <a name="l2"></a>
@@ -161,6 +167,27 @@ Basically we want to create a new object if it doesn't exist. Else we return the
 
 ```Java
 public class Card implements Comparable<Card>{
+    private static Map<Rank, Map<Suit, Card>> aCards = new HashMap<>(); // A double map
+
+    private Rank aRank;
+    private Suit aSuit;
+
+    public static Card get(Rank pRank, Suit pSuit){
+        if (!aCards.containsKey(pRank))
+        {
+            aCards.put(pRank, new HashMap<>());
+        }
+        if (!aCards.get(pRank).containsKey(pSuit))
+        {
+            aCards.get(pRank).put(pSuit, new Card(pRank, pSuit));
+        }
+        return aCards.get(pRank).get(pSuit);
+    }
+}
+```
+
+<!-- ```Java
+public class Card implements Comparable<Card>{
     private static Map<Rank, Map<Suit, Card>> aCards = new HashMap<>(); //A double map
 
     private Rank aRank; 
@@ -182,7 +209,7 @@ public class Card implements Comparable<Card>{
         //Eager implementation creates all 52 objects and returns them when needed.
     }
 }
-```
+``` -->
 
 ### Lecture 8 (2024-09-24) <a name="l8"></a>
 Mutability and uniqueness are not the same concept. 
@@ -232,6 +259,131 @@ public class MultiDeck implements CardSource{
     @Override
     public boolean isEmpty(){
 
+    }
+}
+```
+
+### Lecture 9 (2024-09-26) <a name="l9"></a>
+What if we want to add a `Joker` card? What would be its rank and suit?
+```Java
+public static Card getJoker(){
+    return new Card();
+}
+
+private Card(){
+    aRank = Rank.NONE;
+    aSuit = Suit.NONE;
+}
+```
+
+```Java
+//In Card class
+private static Card JOKER_BLACK = new Card();
+private static Card JOKER_WHITE = new Card();
+
+public static Card getBlackJoker(){
+    return JOKER_BLACK;
+}
+
+public static Card getWhiteJoker(){
+    return JOKER_WHITE;
+}
+```
+
+We also need to add the `Joker` cards to the `Deck` constructor. This will not work, because the Rank and Suit are null for the `Joker` cards. 
+
+Since Java 8 we have a wrapper called `Optional` to make something optional or not.
+
+```Java
+private Optional<Rank> aRank;
+private Optional<Suit> aSuit;
+
+private Card(Rank pRank, Suit pSuit){
+    aRank = Optional.of(pRank);
+    aSuit = Optional.of(pSuit);
+}
+
+private Card(){
+    aRank = Optional.empty();
+    aSuit = Optional.empty();
+}
+```
+Using `Optional` we will need to change the getters we have. Now instead of a null pointer exception, we have a no value present from the `Optional` class. We can hard code the printing:
+
+```Java
+public String toString(){
+    if (isBlackJoker) return "Black Joker";
+    if (isWhiteJoker) return "White Joker";
+    assert aRank.isPresent() && aSuit.isPresent();
+    return aRank.get().pretty() + " of " + aSuit.get().pretty(); //.pretty() is the method that we used to print the enum values.
+}
+```
+Calling `.rank().pretty()` will still break the code. Instead of forcing the unwrapping of the `Optional` in the getters, we can let the client do it using `.isPresent()`. 
+
+> DON'T ABUSE THE OPTIONAL!!!
+
+## Chapter 5 - Unit Testing <a name="u5"></a>
+### Lecture 10 (2024-10-01) <a name="l10"></a>
+Basically, we code in what we expect the code to do and verify that it does. Using `==` is not always the best way to test things.
+
+Instead of using print statements, we can also use `throw new AssertionError("reason");`. Instead of using manual code to flag the errors and throw the errors, we can use `assertSame(o1,o2,"message");` from JUnit to check if objects are the same.
+
+```Java
+@Test
+void testToArray_SameSize(){
+    String[] a1 =  new String[2];
+    String[] a2 = list.toArray(a1);
+    assertSame(a1,a2);
+}
+```
+
+Using `.class.getDeclaredMethods()` we can get the declaration of the method. This can be used to create some sort of *fake* JUnit. How would we know if the method is a test method? The method needs to not be static and not private, not have any arguments. You can also check the modifiers: `Modifier.isStatic(pMethod.getModifiers());`. You can only have void methods as test, because what would you do with the return values of the methods?
+
+```Java
+private static boolean isATest(Method pMethod){
+    boolean isStatic = Modifier.isStatic(pMethod.getModifiers());
+    boolean isVoid = pMethod.getReturnType() == void.class;
+    boolean hasNoParams = pMethod.getParameterCount() == 0;
+    boolean hasAnnotation = pMethod.getAnnotationsByType(Test.class).length == 1;
+    return !isStatic & isVoid & hasNoParams & hasAnnotation;
+}
+
+public static void run(Method pMethod){
+    try {
+        pMethod.invoke(pMethod.getDeclaringClass().getConstructors()[0].newInstance());
+        System.out.println(pMethod.getName() + " PASS");
+    }
+    catch (Throwable e){
+        System.out.println(pMethod.getName() + " FAIL");
+    }
+    //You want to surround this with a try catch block.
+}
+```
+
+Class literals can be obtained by doing `Class.class`, via instance method `object.getClass()`, via utility method `Class.forName("java.lang.String")` and via API `object.class.getSuperclass()`.
+```Java
+Class<?> stringClass = String.class;
+Class<?> stringClass2 = "foo".getClass();
+Class<?> stringClass3 = Class.forName("java.lang.String");
+Class<?> stringClass4 = String.class.getSuperclass();
+
+//Make an object and give args to main to make this object:
+public static void main(String[] args){
+    Object deck = Class.forName(args[0]).getDeclaredConstructor().newInstance();
+}
+```
+
+### Lecture 11 (2024-10-03) <a name="l11"></a>
+What should we test about class `Card`?
+```Java
+import org.junit.jupiter.api.Test;
+
+public class TestCard{
+    @Test
+    void testGet_Normal(){
+        Card card = Card.get(Rank.ACE, Suit.CLUBS);
+        assertSame(Rank.ACE, card.rank());
+        assertSame(Suit.CLUBS, card.suit());
     }
 }
 ```
