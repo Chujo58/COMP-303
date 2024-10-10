@@ -3,13 +3,15 @@ package notes.chapter6;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.EnumMap;
 
 /**
  *  Program manager. 
  * */
 public class Program
 {
-	private static Map<Day, ArrayList<Show>> aShows = new HashMap<Day, ArrayList<Show>>();
+	private static Map<Day, ArrayList<Show>> aShows = new EnumMap<Day, ArrayList<Show>>(Day.class);
+			//new HashMap<Day, ArrayList<Show>>();
 	
 	/**
 	 *  Adds show to a day. 

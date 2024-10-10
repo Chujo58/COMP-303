@@ -1,5 +1,6 @@
 package notes.chapter6;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringJoiner;
@@ -44,5 +45,16 @@ public class CompositeShow implements Show
             description.add(show.description());
         }
         return description.toString();
-    }	
+    }
+
+	@Override
+	public Show copy()
+	{
+		List<Show> copies = new ArrayList<Show>();
+		for (Show show: aShows) 
+		{
+			copies.add(show.copy());
+		}
+		return new CompositeShow(copies.toArray(new Show[0]));
+	}	
 }

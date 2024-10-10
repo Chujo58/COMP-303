@@ -387,3 +387,18 @@ public class TestCard{
     }
 }
 ```
+
+### Lecture 12 (2024-10-07)
+All notes are in the `notes.chapter6` folder. How do we add a speaker that introduces the show? Terrible ideas:
+-   we can add a field `aSpeaker` and `aExtraTime`.
+-   create classes with `Introduced`, basically duplicate classes (or variant classes).
+-   we could also aggreate the normal classes into the `Introduced` shows.
+-   last bad idea, `Introduced` classes that inherit from their normal version.
+
+We have a better idea, using decorators/wrappers. Look at `IntroducedShow`. Problem is we loose our identity. The movie turns back to a `Show` which can be problematic. 
+
+#### Sequence diagram
+Using sequence diagram, we can show which methods are called and in which order. Looking at the stack call, we should see the same things that we wrote in the sequence diagram.
+
+#### Copying of mutable objects
+You can make a copy constructor. Look into `Movie` and `IntroductedShow`. The problem with `IntroducedShow`'s copy constructor is if `pShow.aShow` is mutable. Then we need to do deep copy. Better fix copy method on show interface.

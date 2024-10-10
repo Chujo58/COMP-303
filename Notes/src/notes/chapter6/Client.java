@@ -9,8 +9,12 @@ public class Client
 	
 	public static void main(String[] pArgs) 
 	{		
-		CompositeShow innerCompositeShow = new CompositeShow(ALLIGATOR, GIANT_CLAW); 
-		CompositeShow currentCompositeShow = new CompositeShow(CARVE_UP, innerCompositeShow);	
-		System.out.println(currentCompositeShow.time());
+//		CompositeShow innerCompositeShow = new CompositeShow(ALLIGATOR, GIANT_CLAW); 
+//		CompositeShow currentCompositeShow = new CompositeShow(CARVE_UP, innerCompositeShow);	
+//		System.out.println(currentCompositeShow.time());
+		
+		CompositeShow doubleBill = new CompositeShow(CARVE_UP, GIANT_CLAW);
+		Show show = new IntroducedShow(doubleBill, "Martin", 10);
+		System.out.println(show.description());
 	}
 }

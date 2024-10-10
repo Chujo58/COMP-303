@@ -26,6 +26,15 @@ public class Comedy implements Show
 		aComedian = pComedian;
 	}
 
+	/**
+	 * Copy constructor.
+	 * @param pComedy Comedy to copy.
+	 */
+	public Comedy(Comedy pComedy) 
+	{
+		this(pComedy.aComedian, pComedy.aTitle, pComedy.aTime);
+	}
+	
 	@Override
 	public int time()
 	{
@@ -42,5 +51,11 @@ public class Comedy implements Show
 	public String toString() 
 	{
 		return description();
+	}
+
+	@Override
+	public Comedy copy()
+	{
+		return new Comedy(aTitle, aComedian, aTime);
 	}
 }

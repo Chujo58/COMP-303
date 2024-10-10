@@ -10,8 +10,20 @@ public class Movie implements Show
     private final int aYear;
     
     /**
+     * Copy constructor.
+     * @param pMovie Movie to copy.
+     */
+    public Movie(Movie pMovie)
+    {
+    	this(pMovie.aTitle, pMovie.aYear, pMovie.aTime);
+    }
+    
+    /**
      * Creates movie.
      * @pre pTime > 0 && pTitle != null && pYear >= 1800 && !pTitle.isBlank().
+     * @param pTitle title of move
+     * @param pYear year of movie
+     * @param pTime duration
      * */
     public Movie(String pTitle, int pYear, int pTime) 
     {
@@ -41,4 +53,10 @@ public class Movie implements Show
     {
         return description();
     }
+
+	@Override
+	public Movie copy()
+	{
+		return new Movie(this);
+	}
 }

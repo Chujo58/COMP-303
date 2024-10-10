@@ -36,4 +36,13 @@ public class DoubleBill implements Show
 	{
 		return description();
 	}
+
+	@Override
+	public Show copy()
+	{
+		//One solution:
+		return new DoubleBill(aMovie1.copy(), aMovie2.copy());
+		//Better solution: covariant return type: change the return type of copy for each implementing class.
+		
+	}
 }

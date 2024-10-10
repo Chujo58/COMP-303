@@ -5,27 +5,39 @@ package notes.chapter6;
  * */
 public interface Show
 {
-	Show NONE = new Show() 
+	Show NONE = createShowNone();
+	
+	private static Show createShowNone() //Create a None factory to make copies (different objects) of the NONE object.
 	{
-		@Override
-		public int time()
+		return new Show() 
 		{
-			return 0;
-		}
+			@Override
+			public int time()
+			{
+				return 0;
+			}
 
-		@Override
-		public String description()
-		{
-			return "No show";
-		}
-		
-		@Override
-		public boolean isNone() 
-		{
-			return true;
-		}
-		
-	};
+			@Override
+			public String description()
+			{
+				return "No show";
+			}
+			
+			@Override
+			public boolean isNone() 
+			{
+				return true;
+			}
+
+			@Override
+			public Show copy()
+			{
+				return createShowNone();
+			}
+			
+		};
+	}
+	
     /**
      * @return The running time in minutes
      * @post > 0
@@ -43,4 +55,9 @@ public interface Show
     {
     	return false;
     }
+    
+    /**
+     * @return A different object which is a conceptual copy of current object.
+     * */
+    Show copy();
 }
