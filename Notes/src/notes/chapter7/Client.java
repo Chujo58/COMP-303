@@ -32,8 +32,11 @@ public class Client
 //		Object object = new NullPointerException("Laught, don't cry");
 //		
 //		CHAVES.setTitle(day);
-		System.out.println(ALLIGATOR);
-		System.out.println(CHAVES);
-		System.out.println(SPONSORED);		
+		// Comedy comedy = SPONSORED;
+		// Comedy copy = comedy.copy();
+		// System.out.println(copy);
+
+		Show show = new CompositeShow(CARVE_UP, CHAVES);
+		Show copy = show.copy();
 	}
 }

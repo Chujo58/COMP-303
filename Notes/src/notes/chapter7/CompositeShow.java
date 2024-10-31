@@ -8,7 +8,7 @@ import java.util.StringJoiner;
 /**
  * Implementation of our Composite Design Pattern as mentioned in DoubleBill.
  * */
-public class CompositeShow implements Show
+public class CompositeShow implements Show, Cloneable
 {
 	private final List<Show> aShows;
 	
@@ -56,5 +56,25 @@ public class CompositeShow implements Show
 			copies.add(show.copy());
 		}
 		return new CompositeShow(copies.toArray(new Show[0]));
+
+		//The original solution is better. Look right above.
+		// try
+		// {
+		// 	// return (CompositeShow) super.clone();
+		// 	List<Show> copied = new ArrayList<>();
+		// 	CompositeShow copy = (CompositeShow) super.clone();
+
+		// 	for (Show show: aShows){
+		// 		copied.add(show.copy());
+		// 	}
+		// 	copy.aShows = copied; //Would need to remove the final keyword which isn't ideal.
+		// 	return copy;
+		// }
+		// catch (CloneNotSupportedException e)
+		// {
+		// 	assert false;
+		// 	System.out.println("Error");
+		// 	return null;
+		// }
 	}	
 }
