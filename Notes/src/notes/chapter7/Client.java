@@ -38,5 +38,6 @@ public class Client
 
 		Show show = new CompositeShow(CARVE_UP, CHAVES);
 		Show copy2 = show.copy();
+		System.out.println(copy2);
 	}
 }
