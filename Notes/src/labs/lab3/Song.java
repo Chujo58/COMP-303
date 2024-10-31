@@ -1,4 +1,4 @@
-package comp303.music;
+package labs.lab3;
 
 /**
  * Represents an audio file and its meta-data.

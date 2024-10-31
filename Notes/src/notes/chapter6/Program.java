@@ -13,6 +13,13 @@ public class Program
 	private static Map<Day, ArrayList<Show>> aShows = new EnumMap<Day, ArrayList<Show>>(Day.class);
 			//new HashMap<Day, ArrayList<Show>>();
 	
+	/**Prototype pattern design*/
+	private Show aPrototype = Show.NONE;
+	private void setDefault(Show pShow) 
+	{
+		aPrototype = pShow;
+	}
+	
 	/**
 	 *  Adds show to a day. 
 	 *  @pre pDay != null && pShow != null
@@ -28,6 +35,11 @@ public class Program
 		{
 			aShows.get(pDay).add(pShow);
 		}
+	}
+	
+	public void unset(Day pDay) {
+		assert pDay != null;
+//		aShows.put(pDay, aPrototype.copy()); //Once again assuming we only have one show per day.
 	}
 	
 	/**
@@ -50,5 +62,82 @@ public class Program
 	public void clear() 
 	{
 		aShows.clear();		
+		// This part is assuming that there is only one show per day.
+		for (Day day: Day.values()) {
+//			aShows.put(day, aPrototype.copy());			
+		}
 	}
+	
+	
+	public class ClearProgram implements Command
+	{
+//		private final Program aProgram;
+//		
+//		public ClearProgram(Program pProgram) {
+//			aProgram = pProgram;
+//		}
+		
+		@Override
+		public void execute()
+		{
+//			aProgram.clear();
+			Program.this.clear(); //Call upon parent class
+		}
+
+		@Override
+		public void undo()
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+	}
+	
+	public Command createClearCommand() 
+	{
+		return new Command()
+		{
+			private Map<Day, ArrayList<Show>> aPrevious;
+			
+			@Override
+			public void execute()
+			{
+				for (Day day : Day.values())
+				{
+					aPrevious.put(day, get(day));
+				}
+				Program.this.clear();
+			}
+
+			@Override
+			public void undo()
+			{
+				Program.this.aShows = aPrevious;
+			}
+		};
+	}
+	
+	public Command createSetCommand(Day pDay, Show pShow) 
+	{
+		return new Command()
+		{
+			private ArrayList<Show> aPrevious;
+			
+			@Override
+			public void execute()
+			{
+				aPrevious = Program.this.get(pDay);
+				Program.this.set(pDay, pShow);
+			}
+
+			@Override
+			public void undo()
+			{
+				for (Show show: aPrevious) {
+					set(pDay, show);
+				}
+			}
+		};
+	}
+
 }

@@ -1,4 +1,4 @@
-package comp303.music;
+package labs.lab3;
 
 import java.util.ArrayList;
 import java.util.Iterator;

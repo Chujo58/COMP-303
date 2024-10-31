@@ -16,5 +16,29 @@ public class Client
 		CompositeShow doubleBill = new CompositeShow(CARVE_UP, GIANT_CLAW);
 		Show show = new IntroducedShow(doubleBill, "Martin", 10);
 		System.out.println(show.description());
+		
+//		Program program = new Program();
+//		program.set(Day.FRIDAY, ALLIGATOR);
+//		System.out.println(program);
+//		
+////		Command command = new Program.ClearProgram(program);
+//		Command command = program.new ClearProgram(); //You can remove program because we do not have a parameterized constructor anymore.
+//	
+//		command.execute();
+//		System.out.println(program);
+//		command.undo();
+//		System.out.println(program);
+		
+		
+		ProgramV2 program = new ProgramV2();
+		program.set(Day.FRIDAY, ALLIGATOR);
+		System.out.println(program);
+		
+		Command command = program.createClearCommand();
+		command.execute();
+		System.out.println(program);
+		
+		command.undo();
+		System.out.println(program);
 	}
 }
