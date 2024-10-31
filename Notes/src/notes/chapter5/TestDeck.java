@@ -17,13 +17,13 @@ public class TestDeck {
 	private final Deck aDeck = new Deck();
 	
 	@Test
-	void testIsEmpty_False() {
+	public void testIsEmpty_False() {
 		assertFalse(aDeck.isEmpty());
 	}
 	
 	
 	@Test
-	void testIsEmpty_True() {
+	public void testIsEmpty_True() {
 		clearDeck();
 		assertTrue(aDeck.isEmpty());		
 	}
@@ -49,7 +49,7 @@ public class TestDeck {
 	}
 	
 	@Test
-	void testDraw_Empty() {
+	public void testDraw_Empty() {
 		clearDeck();
 		assertThrows(AssertionError.class, new Executable() {
 			
@@ -61,7 +61,7 @@ public class TestDeck {
 	}
 	
 	@Test
-	void testDraw_NotEmpty() {
+	public void testDraw_NotEmpty() {
 //		int before = size();
 //		Card card = aDeck.draw();
 //		assertEquals(before-1, size());
