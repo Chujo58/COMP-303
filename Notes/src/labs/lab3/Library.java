@@ -23,7 +23,6 @@ public class Library extends MusicComponent
 	@Override
 	public void play()
 	{
-		// TODO Auto-generated method stub
 		for (MusicComponent elem: aElements) 
 		{
 			elem.play();

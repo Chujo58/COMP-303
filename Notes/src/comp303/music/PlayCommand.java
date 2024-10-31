@@ -12,14 +12,12 @@ public class PlayCommand implements Command
 	@Override
 	public void execute()
 	{
-		// TODO Auto-generated method stub
 		aMusicComponent.play();
 	}
 
 	@Override
 	public void undo()
 	{
-		// TODO Auto-generated method stub
 		aMusicComponent.pause();
 	}
 	

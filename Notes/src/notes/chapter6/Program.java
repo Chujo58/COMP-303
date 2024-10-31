@@ -1,6 +1,5 @@
 package notes.chapter6;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -64,6 +63,8 @@ public class Program
 		aShows.clear();		
 		// This part is assuming that there is only one show per day.
 		for (Day day: Day.values()) {
+			aShows.get(day).clear(); //Clear the arraylist
+			aShows.get(day).add(aPrototype.copy());
 //			aShows.put(day, aPrototype.copy());			
 		}
 	}
@@ -87,7 +88,6 @@ public class Program
 		@Override
 		public void undo()
 		{
-			// TODO Auto-generated method stub
 			
 		}
 
@@ -109,6 +109,7 @@ public class Program
 				Program.this.clear();
 			}
 
+			@SuppressWarnings("static-access")
 			@Override
 			public void undo()
 			{

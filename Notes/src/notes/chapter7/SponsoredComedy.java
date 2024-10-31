@@ -43,7 +43,6 @@ public class SponsoredComedy extends Comedy
 //	@Override
 //	public int time()
 //	{
-//		// TODO Auto-generated method stub
 //		return 0;
 //	}
 //
@@ -61,7 +60,6 @@ public class SponsoredComedy extends Comedy
 //	@Override
 //	public Show copy()
 //	{
-//		// TODO Auto-generated method stub
 //		return null;
 //	}
 //	

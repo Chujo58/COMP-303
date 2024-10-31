@@ -91,7 +91,6 @@ public class Song extends MusicComponent
 	@Override
 	public void play()
 	{
-		// TODO Auto-generated method stub
 		System.out.println("Playing " + getTitle() + " by " + getArtist());
 	}
 }

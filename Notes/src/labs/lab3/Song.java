@@ -50,7 +50,7 @@ public class Song extends MusicComponent
 	 * */
 	public void setTitle(String pTitle) 
 	{
-		assert pTitle != null || pTitle.length() != 0;
+		assert pTitle.length() != 0 || pTitle != null;
 		aName = pTitle;
 	}
 	
@@ -60,7 +60,7 @@ public class Song extends MusicComponent
 	 * */
 	public void setArtist(String pArtist) 
 	{
-		assert pArtist != null || pArtist.length() != 0;
+		assert pArtist.length() != 0 || pArtist != null;
 		aArtist = pArtist;
 	}
 	
@@ -91,7 +91,6 @@ public class Song extends MusicComponent
 	@Override
 	public void play()
 	{
-		// TODO Auto-generated method stub
 		System.out.println("Playing " + getTitle() + " by " + getArtist());
 	}
 }
