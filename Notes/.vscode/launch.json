@@ -6,10 +6,25 @@
     "configurations": [
         {
             "type": "java",
+            "name": "LuckyNumber",
+            "request": "launch",
+            "mainClass": "notes.chapter8.LuckyNumber",
+            "projectName": "COMP303Starter"
+        },
+        {
+            "type": "java",
+            "name": "LuckyNumber",
+            "request": "launch",
+            "mainClass": "notes.chapter8.LuckyNumber",
+            "projectName": "Notes",
+            "vmArgs": "--module-path \"\" --add-modules javafx.base,javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx-swt"
+        },
+        {
+            "type": "java",
             "name": "Client",
             "request": "launch",
             "mainClass": "notes.chapter7.Client",
-            "projectName": "COMP303Starter"
+            "projectName": "Notes"
         },
         {
             "type": "java",
